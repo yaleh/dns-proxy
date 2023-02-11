@@ -19,7 +19,7 @@ server.on('request', (request, response) => {
 
   proxy.on('message', (err, msg) => {
     msg.answer.forEach(answer => {
-      if (answer.name.endsWith(domainName) && answer.type === dns.consts.NAME_TO_QTYPE.AAAA) {
+      if (answer.name.toLowerCase().endsWith(domainName) && answer.type === dns.consts.NAME_TO_QTYPE.AAAA) {
         const address = ipaddr.IPv6.parse(answer.address);
         const cidr = ipaddr.IPv6.parseCIDR(cidrRange);
         if (address.match(cidr)) {
